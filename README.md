@@ -4,13 +4,13 @@
 
 # INA234 HAL Based Library
 
-The INA234 device is a 12-bit digital current monitor with an I2C/SMBus-compatible interface that is compliant with a wide range of digital bus voltages such as 1.2 V, 1.8 V, 3.3 V, and 5.0 V. The device monitors the voltage across an external sense resistor and reports values for current, bus voltage, and power. ([Click for more info](https://www.ti.com/product/INA234))
+The DS160PR810 is an eight channel low-power high-performance linear redriver designed to support PCIe 4.0 and Ultra Path Interface (UPI) 2.0 up to 16 Gbps. The device is a protocol agnostic linear redriver that can operate for many differential interfaces. ([Click for more info](https://www.ti.com/product/DS160PR810?keyMatch=DS160PR810))
 
-This library is a software library that works with the INA234 current, voltage, and power monitor chip. This library provides a convenient and efficient way to access the I2C interfaces of the chip, allowing developers to easily integrate this power meter into their systems.
+This library is a software library that works with the DS160PR810 PCIe 4.0 16-Gbps 8-channel linear redriver. This library provides a convenient and efficient way to access the I2C interfaces of the chip, allowing developers to easily integrate this redriver into their systems.
 
-The library is designed to be easy to use and provides a simple, intuitive API for accessing the I2C interfaces of the INA234. It includes a range of functions for performing common I2C operations, such as sending and receiving data, querying the status of the chip, reading the measured parameters, and configuring the INA234 settings.
+The library is designed to be easy to use and provides a simple, intuitive API for accessing the I2C interfaces of the DS160PR810. It includes a range of functions for performing common I2C operations, such as sending and receiving data, querying the status of the chip, reading,  and configuring the DS160PR810 settings.
 
-With this library, developers can quickly and easily integrate the INA234 into their systems, enabling them to take full advantage of the chip's capabilities.
+With this library, developers can quickly and easily integrate the DS160PR810 into their systems, enabling them to take full advantage of the chip's capabilities.
 
 <p align="center">
   <img src="https://github.com/SMotlaq/ina234/blob/images/images/all.png"/>
@@ -18,13 +18,12 @@ With this library, developers can quickly and easily integrate the INA234 into t
 
 ## Key Features
 
-* Easy-to-use API for accessing the I2C interfaces of the INA234
-* Support for common I2C operations, such as sending and receiving data, querying the status of the chip, reading the measured parameters, and configuring the INA234 settings
-* Full feature library
+* Easy-to-use API for accessing the I2C interfaces of the DS160PR810
+* Support for common I2C operations, such as sending and receiving data, querying the status of the chip, reading, and configuring the DS160PR810 settings
 
 ## Documentations
 
-The full documents are available [here](https://smotlaq.github.io/ina234/)
+The full documents are available [here](https://smotlaq.github.io/DS160PR810/)
 
 ## Schematic Symbol and Footprint
 
@@ -44,7 +43,7 @@ Is it helpfull?
 ## Quick Start
 
 1. Download the library source from the [latest release](http://github.com/smotlaq/ina234/releases/latest)
-
+<!---
 2. Copy `ina234.c` and `ina234.h` file to your project directory and add them to your IDE if necessary.
 
 3. Inclued the library into your project:
@@ -211,3 +210,4 @@ printf("      Device ID is 0x%3X \r\n", INA234_getDevID(&ina234));
 ### Get Internal Errors
 
 INA234 can also give the state of internal modules like CPU and memory. By calling `INA234_getErrors` function you can see if there is any error or not. ([see more](https://smotlaq.github.io/ina234/ina234_8c.html#a14a3383eba06ce784ed526585a0cef9a))
+--->
