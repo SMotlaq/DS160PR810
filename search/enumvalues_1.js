@@ -1,0 +1,19 @@
+var searchData=
+[
+  ['bank0_0',['BANK0',['../ds160pr810_8h.html#a33333c31581d7da70e93d499cff0cd54ad496eb0cfd42f085f339c7846cd53cd0',1,'ds160pr810.h']]],
+  ['bank0_5fall_5fchannels_1',['BANK0_ALL_CHANNELS',['../ds160pr810_8h.html#a1a0ed72ec115e9c08515eebdd6a2cac6ad6c59a17418cc644413cc5ecd5ff3b06',1,'ds160pr810.h']]],
+  ['bank0_5fchannel0_2',['BANK0_CHANNEL0',['../ds160pr810_8h.html#a1a0ed72ec115e9c08515eebdd6a2cac6abaa69bca6f0e980081d94b8302f57bb9',1,'ds160pr810.h']]],
+  ['bank0_5fchannel0_5f1_3',['BANK0_CHANNEL0_1',['../ds160pr810_8h.html#a1a0ed72ec115e9c08515eebdd6a2cac6a56761e6fa30768eceea60b64b9585213',1,'ds160pr810.h']]],
+  ['bank0_5fchannel1_4',['BANK0_CHANNEL1',['../ds160pr810_8h.html#a1a0ed72ec115e9c08515eebdd6a2cac6aa3af625e1383a06eff03aebe92c69fae',1,'ds160pr810.h']]],
+  ['bank0_5fchannel2_5',['BANK0_CHANNEL2',['../ds160pr810_8h.html#a1a0ed72ec115e9c08515eebdd6a2cac6acbe6fec12eb60031b6cbbb86abb70e52',1,'ds160pr810.h']]],
+  ['bank0_5fchannel2_5f3_6',['BANK0_CHANNEL2_3',['../ds160pr810_8h.html#a1a0ed72ec115e9c08515eebdd6a2cac6aa5ced2b06c1b9dd2b0ae53b25a78ca88',1,'ds160pr810.h']]],
+  ['bank0_5fchannel3_7',['BANK0_CHANNEL3',['../ds160pr810_8h.html#a1a0ed72ec115e9c08515eebdd6a2cac6a480dc4a7a47200c36925771812e96718',1,'ds160pr810.h']]],
+  ['bank1_8',['BANK1',['../ds160pr810_8h.html#a33333c31581d7da70e93d499cff0cd54a7787d8168e4dacf407e54b5f22b8e256',1,'ds160pr810.h']]],
+  ['bank1_5fall_5fchannels_9',['BANK1_ALL_CHANNELS',['../ds160pr810_8h.html#a1a0ed72ec115e9c08515eebdd6a2cac6a4bf051ecf96ef23ce6ddb9b97c80a14d',1,'ds160pr810.h']]],
+  ['bank1_5fchannel0_10',['BANK1_CHANNEL0',['../ds160pr810_8h.html#a1a0ed72ec115e9c08515eebdd6a2cac6a9a52b187a720a39b335f970c03008ad2',1,'ds160pr810.h']]],
+  ['bank1_5fchannel0_5f1_11',['BANK1_CHANNEL0_1',['../ds160pr810_8h.html#a1a0ed72ec115e9c08515eebdd6a2cac6abf870b6ba7bf7d6ce9cb65b22db3a7bb',1,'ds160pr810.h']]],
+  ['bank1_5fchannel1_12',['BANK1_CHANNEL1',['../ds160pr810_8h.html#a1a0ed72ec115e9c08515eebdd6a2cac6a3fb42d7ad77eda935b362c8b1eace90f',1,'ds160pr810.h']]],
+  ['bank1_5fchannel2_13',['BANK1_CHANNEL2',['../ds160pr810_8h.html#a1a0ed72ec115e9c08515eebdd6a2cac6a5d80c4a4343f35064f503884820a2486',1,'ds160pr810.h']]],
+  ['bank1_5fchannel2_5f3_14',['BANK1_CHANNEL2_3',['../ds160pr810_8h.html#a1a0ed72ec115e9c08515eebdd6a2cac6a7863ab077df93b96507b4e3f514858f7',1,'ds160pr810.h']]],
+  ['bank1_5fchannel3_15',['BANK1_CHANNEL3',['../ds160pr810_8h.html#a1a0ed72ec115e9c08515eebdd6a2cac6ae7adbf27e8da059cecd5686f616c9552',1,'ds160pr810.h']]]
+];
