@@ -1,8 +1,8 @@
-[![Doxygen Action](https://github.com/SMotlaq/ina234/actions/workflows/main2.yml/badge.svg)](https://github.com/SMotlaq/ina234/actions/workflows/main2.yml)
-[![pages-build-deployment](https://github.com/SMotlaq/ina234/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/SMotlaq/ina234/actions/workflows/pages/pages-build-deployment)
+[![Doxygen Action](https://github.com/SMotlaq/DS160PR810/actions/workflows/main2.yml/badge.svg)](https://github.com/SMotlaq/DS160PR810/actions/workflows/main2.yml)
+[![pages-build-deployment](https://github.com/SMotlaq/DS160PR810/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/SMotlaq/DS160PR810/actions/workflows/pages/pages-build-deployment)
 
 
-# INA234 HAL Based Library
+# DS160PR810 HAL Based Library
 
 The DS160PR810 is an eight channel low-power high-performance linear redriver designed to support PCIe 4.0 and Ultra Path Interface (UPI) 2.0 up to 16 Gbps. The device is a protocol agnostic linear redriver that can operate for many differential interfaces. ([Click for more info](https://www.ti.com/product/DS160PR810?keyMatch=DS160PR810))
 
