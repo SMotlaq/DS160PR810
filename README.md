@@ -13,7 +13,7 @@ The library is designed to be easy to use and provides a simple, intuitive API f
 With this library, developers can quickly and easily integrate the DS160PR810 into their systems, enabling them to take full advantage of the chip's capabilities.
 
 <p align="center">
-  <img src="https://github.com/SMotlaq/ina234/blob/images/images/all.png"/>
+  <img src="https://github.com/SMotlaq/ds160pr810/blob/images/images/all.png"/>
 </p>
 
 ## Key Features
