@@ -192,10 +192,10 @@ DS160PR810_resetRegisters(&my_redriver);
 
 You can read each setting individually by calling the appropriate function:
 * `DS160PR810_getCTLE_EQStage1Bypass` to read first stage status ([see more](https://smotlaq.github.io/DS160PR810/ds160pr810_8c.html#ace8ba1c50c6f6a35a8df3868612c39b7))
-* `DS160PR810_getCTLE_Stage1` to read the gain index of first stage [(see more)](https://smotlaq.github.io/DS160PR810/ds160pr810_8c.html#a1e44272733c6969bebd47ce470f65500)
-* `DS160PR810_getCTLE_Stage2` to read the gain index of first stage [(see more)](https://smotlaq.github.io/DS160PR810/ds160pr810_8c.html#a35e3211a6abb2af46a9f2ad445661b69)
-* `DS160PR810_getDCGain_EQDCGain` to read the DC gain [(see more)](https://smotlaq.github.io/DS160PR810/ds160pr810_8c.html#a9466df8da105a840b0c7c441b991ae00)
-* `DS160PR810_getDCGain_TxVOD` to read the TX VOD [(see more)](https://smotlaq.github.io/DS160PR810/ds160pr810_8c.html#a48c2933fff20556f533feafff955edc9)
+* `DS160PR810_getCTLE_Stage1` to read the gain index of first stage ([see more](https://smotlaq.github.io/DS160PR810/ds160pr810_8c.html#a1e44272733c6969bebd47ce470f65500))
+* `DS160PR810_getCTLE_Stage2` to read the gain index of first stage ([see more](https://smotlaq.github.io/DS160PR810/ds160pr810_8c.html#a35e3211a6abb2af46a9f2ad445661b69))
+* `DS160PR810_getDCGain_EQDCGain` to read the DC gain ([see more](https://smotlaq.github.io/DS160PR810/ds160pr810_8c.html#a9466df8da105a840b0c7c441b991ae00))
+* `DS160PR810_getDCGain_TxVOD` to read the TX VOD ([see more](https://smotlaq.github.io/DS160PR810/ds160pr810_8c.html#a48c2933fff20556f533feafff955edc9))
 
 Example:
 ```C
