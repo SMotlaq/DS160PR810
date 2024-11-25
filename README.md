@@ -111,7 +111,7 @@ if(STATUS_OK == DS160PR810_init(&my_redriver, &hi2c1, 0x18)){
 ```
 ### Using some useful tools
 
-If you want to use UART or virtual USB COM port on your microcontroller, it is recommended to use my [Debug]() tool and include it to your project:
+If you want to use UART or virtual USB COM port on your microcontroller, it is recommended to use my [Debug](https://github.com/SMotlaq/DS160PR810/tree/master/Debug) tool and include it to your project:
 ```C
 #include "debug.h"
 ```
@@ -127,7 +127,7 @@ Then open the `debug.h` and config the print settings acording to your setup: (y
 
 By applying the above trick, you can simply use `DEBUG(...)` instead of conventional `printf(...)` to see status on the serial terminal.
 
-There is another tool that helps you to check the redriver status better,just by importing `logger.h` and using its functions. Here is the previous code with these tools:
+There is another tool that helps you to check the redriver status better, just by importing [logger](https://github.com/SMotlaq/DS160PR810/tree/master/Logger) and using its functions. Here is the previous code with these tools:
 ```C
 #include "ds160pr810.h"
 #include "debug.h"
