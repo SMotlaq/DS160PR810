@@ -43,105 +43,140 @@ Is it helpfull?
 ## Quick Start
 
 1. Download the library source from the [latest release](http://github.com/smotlaq/DS160PR810/releases/latest)
-<!---
-2. Copy `ina234.c` and `ina234.h` file to your project directory and add them to your IDE if necessary.
 
-3. Inclued the library into your project:
+2. Copy `ds160pr810.c` and `ds160pr810.h` file to your project directory and add them to your IDE if necessary.
+
+3. It is recommended to import [Debugger](https://github.com/SMotlaq/DS160PR810/tree/master/Debug) amd [Logger](https://github.com/SMotlaq/DS160PR810/tree/master/Logger) as well, to simply use logs.
+
+4. Inclued the library into your project:
    ```C
-   #include "ina234.h"
+   #include "ds160pr810.h"
    ```
 
-4. Create an object (instanse) from INA234 struct with desired name:
+5. Create an object (instanse) from DS160PR810 struct with desired name:
    ```C
-   INA234 ina234;
+   DS160PR810 my_redriver;
    ```
 
-5. Initialize the chip:
+6. Initialize the chip:
    ```C
-   INA234_init(&ina234, 0x48, &hi2c1, 1, RANGE_20_48mV, NADC_16, CTIME_1100us, CTIME_140us, MODE_CONTINUOUS_BOTH_SHUNT_BUS);
+   DS160PR810_init(&my_redriver, &hi2c1, 0x18);
    ```
-   Each argument is described on the [doc page](https://smotlaq.github.io/ina234/ina234_8c.html#a21acc30b187445a98f711a54b8678c7c).
+   Each argument is described on the [doc page](https://smotlaq.github.io/DS160PR810/ds160pr810_8c.html#aad727c8de8def27e0ef2a4da11551735).
 
-6. Now you can call `INA234_readAll` function to read the meassured data:
+7. Now you can config the redriver CTLE using `DS160PR810_setCTLE` function. For example:
    ```C
-   INA234_readAll(&ina234);
-   shunt_voltage = ina234.ShuntVoltage;
-   bus_voltage = ina234.BusVoltage;
-   current = ina234.Current;
-   power = ina234.Power;
+   DS160PR810_setCTLE(&my_redriver, BANK0_ALL_CHANNELS, EQ_STAGE1_BYPASS_DISABLE, 4, 2);
    ```
+   Or
+   ```C
+   DS160PR810_setCTLE(&my_redriver, BANK1_CHANNEL0_1, EQ_STAGE1_BYPASS_DISABLE, 2, 3);
+   ```
+   Or
+   ```C
+   DS160PR810_setCTLE(&my_redriver, CHANNEL6_7, EQ_STAGE1_BYPASS_ENABLE, 1, 7);
+   ```
+   Full description of this function is available [here](https://smotlaq.github.io/DS160PR810/ds160pr810_8c.html#aeefd615940a76cab2cdb2d52b1209f70).
+
+8. Then you can config the DC gain and TX VOD using `DS160PR810_setDCGain` function. For example:
+   ```C
+   DS160PR810_setDCGain(&my_redriver, CHANNEL0_1, TX_VOD_0db, EQ_DC_GAIN_3db5);
+   ```
+   Or
+   ```C
+	 DS160PR810_setDCGain(&my_redriver, BANK0_CHANNEL2_3, TX_VOD_m3db5, EQ_DC_GAIN_0db);
+   ```
+   Or
+   ```C
+	 DS160PR810_setDCGain(&my_redriver, BANK1_ALL_CHANNELS, TX_VOD_m1db6, EQ_DC_GAIN_3db5);	
+   ```
+   Full description of this function is available [here](https://smotlaq.github.io/DS160PR810/ds160pr810_8c.html#ad1bf85cf0f785428d683b15e4a03e428).
 
 Here is the whole code:
 ```C
-#include "ina234.h"
+#include "ds160pr810.h"
 
-INA234 ina234;
-float shunt_voltage, bus_voltage, current, power;
+DS160PR810 my_redriver;
 
-if(STATUS_OK == INA234_init(&ina234, 0x48, &hi2c1, 1, RANGE_20_48mV, NADC_16, CTIME_1100us, CTIME_140us, MODE_CONTINUOUS_BOTH_SHUNT_BUS)){
+if(STATUS_OK == DS160PR810_init(&my_redriver, &hi2c1, 0x18)){
 
-  INA234_readAll(&ina234);
-  shunt_voltage = ina234.ShuntVoltage;
-  bus_voltage = ina234.BusVoltage;
-  current = ina234.Current;
-  power = ina234.Power;
+  // Set CTLE
+  DS160PR810_setCTLE(&my_redriver, BANK0_ALL_CHANNELS, EQ_STAGE1_BYPASS_DISABLE, 4, 2);
+  DS160PR810_setCTLE(&my_redriver, BANK1_ALL_CHANNELS, EQ_STAGE1_BYPASS_DISABLE, 3, 1);
+
+  // Set DC gain
+  DS160PR810_setDCGain(&my_redriver, ALL_BANKS, TX_VOD_0db, EQ_DC_GAIN_0db);
+  
 }
 ```
+### Using some useful tools
 
+If you want to use UART or virtual USB COM port on your microcontroller, it is recommended to use my [Debug]() tool and include it to your project:
+```C
+#include "debug.h"
+```
 
-If you want to use UART or virtual USB COM port on youe microcontroller, it is recommended to use this print function:
+Then open the `debug.h` and config the print settings acording to your setup: (you can ignore `DEBUG_UART` if using USB)
 ```C
 // Print setting -------------------
 #define DEBUG_ENABLE  1
-#define USB_DEBUG     0
+#define DEBUG_ON_USB  1
 #define DEBUG_UART    (&huart1)
 // ---------------------------------
-
-#if DEBUG_ENABLE
-  #include "stdarg.h"
-  #include "string.h"
-  #include "stdlib.h"
-
-  #if USB_DEBUG
-    #include "usbd_cdc_if.h"
-  #endif
-#endif
-
-void DEBUG(const char* _str, ...){
-  #if DEBUG_ENABLE
-    va_list args;
-    va_start(args, _str);
-    char buffer[150];
-    memset(buffer, 0, 150);
-    int buffer_size = vsprintf(buffer, _str, args);
-    #if USB_DEBUG
-      CDC_Transmit_FS((uint8_t*) buffer, buffer_size);
-    #else
-      HAL_UART_Transmit(DEBUG_UART, (uint8_t*)buffer, buffer_size, 5000);
-    #endif
-  #endif
-}
 ```
 
+By applying the above trick, you can simply use `DEBUG(...)` instead of conventional `printf(...)` to see status on the serial terminal.
 
-By applying the above trick, you can simply use this one to see the variables on the serial terminal:
+There is another tool that helps you to check the redriver status better,just by importing `logger.h` and using its functions. Here is the previous code with these tools:
 ```C
-#include "ina234.h"
+#include "ds160pr810.h"
+#include "debug.h"
+#include "logger.h"
 
-INA234 ina234;
+DS160PR810 my_redriver;
 
-if(STATUS_OK == INA234_init(&ina234, 0x48, &hi2c1, 1, RANGE_20_48mV, NADC_16, CTIME_1100us, CTIME_140us, MODE_CONTINUOUS_BOTH_SHUNT_BUS)){
+if(STATUS_OK == DS160PR810_init(&my_redriver, &hi2c1, 0x18)){
+  
+  DEBUG("Redriver init done \n\r");
+  
+  // Set CTLE
+  DS160PR810_setCTLE(&my_redriver, BANK0_ALL_CHANNELS, EQ_STAGE1_BYPASS_DISABLE, 4, 2);
+  DS160PR810_setCTLE(&my_redriver, BANK1_ALL_CHANNELS, EQ_STAGE1_BYPASS_ENABLE, 0, 6);
 
-  INA234_readAll(&ina234);
-  DEBUG("Shunt Voltage: %.3fmV \t Bus Voltage: %.2fV \t Current: %.2fA \t Power: %.2fW\r\n", ina234.ShuntVoltage, ina234.BusVoltage, ina234.Current, ina234.Power);
+  // Set DC gain
+  DS160PR810_setDCGain(&my_redriver, ALL_BANKS, TX_VOD_0db, EQ_DC_GAIN_0db);
 
+  DEBUG("Redriver config done \n\r");
+
+  log_All2(&rRX);
+  
 }
 else{
-
-  DEBUG("----- INA234 init failed -----\r\n");
-
+  DEBUG("Redriver init failed \n\r");
 }
 ```
+
+The output will be like this:
+
+```
+Redriver init done 
+Redriver config done 
+---------------------------------------------------------------------------------
+| Ch index | Stage 1 Stat | Stage 1 | Stage 2 | DC Gain |  Tx VOD  | RX  Detect |
+---------------------------------------------------------------------------------
+|     0    |    ACTIVE    |    4    |    2    |  0   db |   0   db |    NONE    |
+|     1    |    ACTIVE    |    4    |    2    |  0   db |   0   db |    NONE    |
+|     2    |    ACTIVE    |    4    |    2    |  0   db |   0   db |    NONE    |
+|     3    |    ACTIVE    |    4    |    2    |  0   db |   0   db |    NONE    |
+|     4    |   BYPASSED   |    0    |    6    |  0   db |   0   db |    NONE    |
+|     5    |   BYPASSED   |    0    |    6    |  0   db |   0   db |    NONE    |
+|     6    |   BYPASSED   |    0    |    6    |  0   db |   0   db |    NONE    |
+|     7    |   BYPASSED   |    0    |    6    |  0   db |   0   db |    NONE    |
+---------------------------------------------------------------------------------
+```
+
+<!---
+
 ## Advanced Options
 
 ### Using Alert
