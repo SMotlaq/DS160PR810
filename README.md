@@ -1,6 +1,7 @@
+<div id="top"></div>
+
 [![Doxygen Action](https://github.com/SMotlaq/DS160PR810/actions/workflows/main2.yml/badge.svg)](https://github.com/SMotlaq/DS160PR810/actions/workflows/main2.yml)
 [![pages-build-deployment](https://github.com/SMotlaq/DS160PR810/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/SMotlaq/DS160PR810/actions/workflows/pages/pages-build-deployment)
-
 
 # DS160PR810 HAL Based Library
 
@@ -228,3 +229,9 @@ DEBUG("The IDs are: \n\r Bank0: \n\r  - ID1: 0x%02X \n\r  - ID0: 0x%02X \n\r Ban
   DS160PR810_getDevID0(&my_redriver, BANK1)
 );
 ```
+
+-----------
+
+### Contact me via [E-mail](mailto:pilot.motlaq@gmail.com) or [Telegram](https://t.me/S_Motlaq)
+
+<p align="right">(<a href="#top">back to top</a>)</p>
