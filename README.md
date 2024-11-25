@@ -28,6 +28,9 @@ The full documents are available [here](https://smotlaq.github.io/DS160PR810/)
 ## Schematic Symbol and Footprint
 
 Footprint and schematic symbols are available in [my Altium library](https://github.com/SMotlaq/altium-library).
+<p align="center">
+  <img src="https://github.com/SMotlaq/ds160pr810/blob/images/images/symbol.png"/>
+</p>
 
 ## Donate
 Is it helpfull?
