@@ -200,10 +200,10 @@ You can read each setting individually by calling the appropriate function:
 Example:
 ```C
 void log_EQ_Channel(DS160PR810* self, ApplyTo channel){
-	DEBUG("   - EQ Settings:\n\r");
-	DEBUG("     - Stage1 Status: %s \n\r", DS160PR810_getCTLE_EQStage1Bypass(self, channel) ? "BY PASSED" : "ACTIVE");
-	DEBUG("     -     Stage1 EQ: %d \n\r", DS160PR810_getCTLE_Stage1(self, channel));
-	DEBUG("     -     Stage2 EQ: %d \n\r", DS160PR810_getCTLE_Stage2(self, channel));	
+  DEBUG("   - EQ Settings:\n\r");
+  DEBUG("     - Stage1 Status: %s \n\r", DS160PR810_getCTLE_EQStage1Bypass(self, channel) ? "BY PASSED" : "ACTIVE");
+  DEBUG("     -     Stage1 EQ: %d \n\r", DS160PR810_getCTLE_Stage1(self, channel));
+  DEBUG("     -     Stage2 EQ: %d \n\r", DS160PR810_getCTLE_Stage2(self, channel));	
 }
 
 log_EQ_Channel(&my_redriver, CHANNEL0);
@@ -222,9 +222,9 @@ If you want to get the device IDs, you can use these functions:
 For example:
 ```C
 DEBUG("The IDs are: \n\r Bank0: \n\r  - ID1: 0x%02X \n\r  - ID0: 0x%02X \n\r Bank1: \n\r  - ID1: 0x%02X \n\r  - ID0: 0x%02X \n\r",
-	DS160PR810_getDevID1(&my_redriver, BANK0),
-	DS160PR810_getDevID0(&my_redriver, BANK0),
-	DS160PR810_getDevID1(&my_redriver, BANK1),
-	DS160PR810_getDevID0(&my_redriver, BANK1)
+  DS160PR810_getDevID1(&my_redriver, BANK0),
+  DS160PR810_getDevID0(&my_redriver, BANK0),
+  DS160PR810_getDevID1(&my_redriver, BANK1),
+  DS160PR810_getDevID0(&my_redriver, BANK1)
 );
 ```
