@@ -175,74 +175,53 @@ Redriver config done
 ---------------------------------------------------------------------------------
 ```
 
-<!---
-
 ## Advanced Options
 
-### Using Alert
+### Reset Registers
 
-INA234 can assert an alert on several situations like convertion ready, over power, over current, bus over voltage, bus under voltage, etc. To initialize alert functionality, use `INA234_alert_init` function:
+DS160PR810 can reset the register values by software. If you want to reset all of the register values you can use `DS160PR810_resetRegisters` function:
 ```C
-INA234_alert_init(&ina234, ALERT_SHUNT_OVER_LIMIT, ALERT_ACTIVE_LOW, ALERT_TRANSPARENT, ALERT_CONV_DISABLE, 2.5)
+DS160PR810_resetRegisters(&my_redriver);
 ```
-Each argument is described on the [doc page](https://smotlaq.github.io/ina234/ina234_8c.html#afb44437883ad8f8d08aaf695815da7ed).
+([see more](https://smotlaq.github.io/DS160PR810/ds160pr810_8c.html#a1d98103b38ed2c1af036bd7037843503))
 
-** *NOTE1* **  If you choose `ALERT_LATCHED` for alert latch mode, you have to reset the alert pin by calling `INA234_resetAlert` function after each alert assertion. ([see more](https://smotlaq.github.io/ina234/ina234_8c.html#a5810f9a740226a39ba5cc2afa6b64f77))
+### Getting the Current Configurations
 
-** *NOTE2* **  If you enabled convertion ready alert as well as limit reach functions (like shunt over voltage etc), you have to distinguish the alert source bt calling `INA234_getAlertSource` function. ([see more](https://smotlaq.github.io/ina234/ina234_8c.html#a52cc3b785dea1f5af6f0803f02fcefdb))
-
-** *NOTE3* **  The alert pin is open-drain. So don not forget to add a pull-up resistor on this pin.
-
-### Read Parameters Individually
-
-You can read each parameter individually instead of `INA234_readAll` by calling each of these functions:
-* `INA234_getShuntVoltage(&ina234);` to read shunt voltage (in mV)
-* `INA234_getBusVoltage(&ina234);` to read bus voltage (in V)
-* `INA234_getPower(&ina234);` to read power (in W)
-* `INA234_getCurrent(&ina234);` to read current (in A)
+You can read each setting individually by calling the appropriate function:
+* `DS160PR810_getCTLE_EQStage1Bypass` to read first stage status ([see more](https://smotlaq.github.io/DS160PR810/ds160pr810_8c.html#ace8ba1c50c6f6a35a8df3868612c39b7))
+* `DS160PR810_getCTLE_Stage1` to read the gain index of first stage [(see more)](https://smotlaq.github.io/DS160PR810/ds160pr810_8c.html#a1e44272733c6969bebd47ce470f65500)
+* `DS160PR810_getCTLE_Stage2` to read the gain index of first stage [(see more)](https://smotlaq.github.io/DS160PR810/ds160pr810_8c.html#a35e3211a6abb2af46a9f2ad445661b69)
+* `DS160PR810_getDCGain_EQDCGain` to read the DC gain [(see more)](https://smotlaq.github.io/DS160PR810/ds160pr810_8c.html#a9466df8da105a840b0c7c441b991ae00)
+* `DS160PR810_getDCGain_TxVOD` to read the TX VOD [(see more)](https://smotlaq.github.io/DS160PR810/ds160pr810_8c.html#a48c2933fff20556f533feafff955edc9)
 
 Example:
 ```C
-#include "ina234.h"
-
-INA234 ina234;
-float shunt_voltage, bus_voltage, current, power;
-
-if(STATUS_OK == INA234_init(&ina234, 0x48, &hi2c1, 1, RANGE_20_48mV, NADC_16, CTIME_1100us, CTIME_140us, MODE_CONTINUOUS_BOTH_SHUNT_BUS)){
-
-  shunt_voltage = INA234_getShuntVoltage(&ina234);
-  bus_voltage = INA234_getBusVoltage(&ina234);
-  current = INA234_getCurrent(&ina234);;
-  power = INA234_getPower(&ina234);;
+void log_EQ_Channel(DS160PR810* self, ApplyTo channel){
+	DEBUG("   - EQ Settings:\n\r");
+	DEBUG("     - Stage1 Status: %s \n\r", DS160PR810_getCTLE_EQStage1Bypass(self, channel) ? "BY PASSED" : "ACTIVE");
+	DEBUG("     -     Stage1 EQ: %d \n\r", DS160PR810_getCTLE_Stage1(self, channel));
+	DEBUG("     -     Stage2 EQ: %d \n\r", DS160PR810_getCTLE_Stage2(self, channel));	
 }
+
+log_EQ_Channel(&my_redriver, CHANNEL0);
 ```
 
-### Soft Reset
+### RX Detect Status
 
-You can send a reset command to all of the INA234 chips on the same bus by calling `INA234_SoftResetAll` function. ([see more](https://smotlaq.github.io/ina234/ina234_8c.html#af3d939ea27371b17fd265f19957234b2))
+You can read the RX detect status by calling the `DS160PR810_getRxDetectStatus` function. To see the return values [see here](https://smotlaq.github.io/DS160PR810/ds160pr810_8c.html#ab5092214a1e7e65b63db2b5668887031)
 
-### Change Settings On The Fly
+### Getting Device IDs
 
-You can change each of the configurations on the fly using these functions:
-* `INA234_setADCRange` to change the ADC full scale range ([see more](https://smotlaq.github.io/ina234/ina234_8c.html#aba71c63deed65a0abdbf7269b5f382d8))
-* `INA234_setNumberOfADCSamples` to change the number of averaging ADC samples ([see more](https://smotlaq.github.io/ina234/ina234_8c.html#a84ff6173bf6cfa44348ba259a503c804))
-* `INA234_setVBusConversionTime` to change the conversion period of VBus ([see more](https://smotlaq.github.io/ina234/ina234_8c.html#a94ec7dc7cd10748c4ed822266174d0ff))
-* `INA234_setVShuntConversionTime` to change the conversion period of VBus ([see more](https://smotlaq.github.io/ina234/ina234_8c.html#ad19627414a2465c9cf1fac54f54eaa39))
-* `INA234_setMode` to change the operating mode ([see more](https://smotlaq.github.io/ina234/ina234_8c.html#ac85c8e736ffae6d248971091b374d00f))
-
-### Getting Manufacturer and Device ID
-
-If you want to get the manufacturer or device ID, you can use these functions:
-* `INA234_getManID` ([see more](https://smotlaq.github.io/ina234/ina234_8c.html#ae646f51adec51af1aa6377c3dffeeb6a))
-* `INA234_getDevID` ([see more](https://smotlaq.github.io/ina234/ina234_8c.html#a88ff1503798836270a41d3b9f3913ca7))
+If you want to get the device IDs, you can use these functions:
+* `DS160PR810_getDevID0` ([see more](https://smotlaq.github.io/DS160PR810/ds160pr810_8c.html#a9f310172bdf468bde368aed6a7bcd5ce))
+* `DS160PR810_getDevID1` ([see more](https://smotlaq.github.io/DS160PR810/ds160pr810_8c.html#a54b4a16d44e2365494e9031f3c829d52))
 
 For example:
 ```C
-printf("Manufacturer ID is 0x%4X \r\n", INA234_getManID(&ina234));
-printf("      Device ID is 0x%3X \r\n", INA234_getDevID(&ina234));
+DEBUG("The IDs are: \n\r Bank0: \n\r  - ID1: 0x%02X \n\r  - ID0: 0x%02X \n\r Bank1: \n\r  - ID1: 0x%02X \n\r  - ID0: 0x%02X \n\r",
+	DS160PR810_getDevID1(&my_redriver, BANK0),
+	DS160PR810_getDevID0(&my_redriver, BANK0),
+	DS160PR810_getDevID1(&my_redriver, BANK1),
+	DS160PR810_getDevID0(&my_redriver, BANK1)
+);
 ```
-
-### Get Internal Errors
-
-INA234 can also give the state of internal modules like CPU and memory. By calling `INA234_getErrors` function you can see if there is any error or not. ([see more](https://smotlaq.github.io/ina234/ina234_8c.html#a14a3383eba06ce784ed526585a0cef9a))
---->
