@@ -148,7 +148,7 @@ if(STATUS_OK == DS160PR810_init(&my_redriver, &hi2c1, 0x18)){
 
   DEBUG("Redriver config done \n\r");
 
-  log_All2(&rRX);
+  log_All2(&my_redriver);
   
 }
 else{
